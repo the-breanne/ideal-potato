@@ -1,27 +1,27 @@
 from django.contrib import admin
-from .models import Customer, Investment, Stock
+from .models import Task, Feedback, Meeting
 
-class CustomerList(admin.ModelAdmin):
-    list_display = ('cust_number', 'name', 'city', 'cell_phone')
-    list_filter = ('cust_number', 'name', 'city')
-    search_fields = ('cust_number', 'name')
-    ordering = ['cust_number']
-
-
-class InvestmentList(admin.ModelAdmin):
-    list_display = ('customer', 'category', 'description', 'recent_value')
-    list_filter = ('customer', 'category')
-    search_fields = ('customer', 'category')
-    ordering = ['customer']
+class TaskList(admin.ModelAdmin):
+    list_display = ('task_number', 'name', 'city', 'cell_phone')
+    list_filter = ('task_number', 'name', 'city')
+    search_fields = ('task_number', 'name')
+    ordering = ['task_number']
 
 
-class StockList(admin.ModelAdmin):
-    list_display = ('customer','symbol', 'name', 'shares', 'purchase_price')
-    list_filter = ('customer','symbol', 'name')
-    search_fields = ('customer','symbol', 'name')
-    ordering = ['customer']
+class FeedbackList(admin.ModelAdmin):
+    list_display = ('task', 'category', 'description', 'recent_value')
+    list_filter = ('task', 'category')
+    search_fields = ('task', 'category')
+    ordering = ['task']
 
 
-admin.site.register(Customer, CustomerList)
-admin.site.register(Investment, InvestmentList)
-admin.site.register(Stock, StockList)
+class MeetingList(admin.ModelAdmin):
+    list_display = ('task','symbol', 'name', 'shares', 'purchase_price')
+    list_filter = ('task','symbol', 'name')
+    search_fields = ('task','symbol', 'name')
+    ordering = ['task']
+
+
+admin.site.register(Task, TaskList)
+admin.site.register(Feedback, FeedbackList)
+admin.site.register(Meeting, MeetingList)

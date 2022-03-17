@@ -1,23 +1,23 @@
 from rest_framework import serializers
-from .models import Customer, Investment, Stock
+from .models import Task, Feedback, Meeting
 
 
-class CustomerSerializer(serializers.ModelSerializer):
-
-    class Meta:
-            model = Customer
-
-            fields = ('pk','name', 'address','cust_number', 'city', 'state', 'zipcode', 'email', 'cell_phone')
-
-class InvestmentSerializer(serializers.ModelSerializer):
+class TaskSerializer(serializers.ModelSerializer):
 
     class Meta:
-            model = Investment
-            fields = ('pk','customer', 'cust_number', 'category', 'description', 'acquired_value', 'acquired_date', 'recent_value', 'recent_date')
+            model = Task
 
+            fields = ('pk','name', 'address','task_number', 'city', 'state', 'zipcode', 'email', 'cell_phone')
 
-class StockSerializer(serializers.ModelSerializer):
+class FeedbackSerializer(serializers.ModelSerializer):
 
     class Meta:
-            model = Stock
-            fields = ('pk','customer', 'cust_number', 'symbol', 'name', 'shares', 'purchase_price', 'purchase_date')
+            model = Feedback
+            fields = ('pk','task', 'task_number', 'category', 'description', 'acquired_value', 'acquired_date', 'recent_value', 'recent_date')
+
+
+class MeetingSerializer(serializers.ModelSerializer):
+
+    class Meta:
+            model = Meeting
+            fields = ('pk','task', 'task_number', 'symbol', 'name', 'shares', 'purchase_price', 'purchase_date')

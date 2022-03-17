@@ -2,10 +2,10 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
-class Customer(models.Model):
+class Task(models.Model):
     name = models.CharField(max_length=50)
     address = models.CharField(max_length=200)
-    cust_number = models.IntegerField(blank=False, null=False)
+    task_number = models.IntegerField(blank=False, null=False)
     city = models.CharField(max_length=50)
     state = models.CharField(max_length=50)
     zipcode = models.CharField(max_length=10)
@@ -24,11 +24,11 @@ class Customer(models.Model):
         self.save()
 
     def __str__(self):
-        return str(self.cust_number)
+        return str(self.task_number)
 
 
-class Investment(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='investments')
+class Feedback(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='feedbacks')
     category = models.CharField(max_length=50)
     description = models.CharField(max_length=200)
     acquired_value = models.DecimalField(max_digits=10, decimal_places=2)
@@ -45,18 +45,18 @@ class Investment(models.Model):
         self.save()
 
     def __str__(self):
-        return str(self.customer)
+        return str(self.task)
 
-    def results_by_investment(self):
+    def results_by_feedback(self):
         return self.recent_value - self.acquired_value
 
-    def cust_number(self):
-        return self.customer.cust_number
+    def task_number(self):
+        return self.task.task_number
 
 
 
-class Stock(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name='stocks')
+class Meeting(models.Model):
+    task = models.ForeignKey(Task, on_delete=models.CASCADE, related_name='meetings')
     symbol = models.CharField(max_length=10)
     name = models.CharField(max_length=50)
     shares = models.DecimalField (max_digits=10, decimal_places=1)
@@ -68,12 +68,12 @@ class Stock(models.Model):
         self.save()
 
     def __str__(self):
-        return str(self.customer)
+        return str(self.task)
 
-    def initial_stock_value(self):
+    def initial_meeting_value(self):
         return self.shares * self.purchase_price
 
 
-    def cust_number(self):
-        return self.customer.cust_number
+    def task_number(self):
+        return self.task.task_number
 
